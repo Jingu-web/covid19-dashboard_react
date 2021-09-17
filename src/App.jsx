@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { MenuItem, FormControl, Select } from "@material-ui/core";
+import {
+  Card,
+  CardContent,
+  FormControl,
+  MenuItem,
+  Select,
+} from "@material-ui/core";
 
 import "./App.css";
 import { InfoBox } from "./components/InfoBox";
@@ -58,6 +64,13 @@ const App = () => {
         </div>
         <Map />
       </div>
+      <Card className="app_right">
+        <CardContent>
+          <h3>国別感染者数リスト</h3>
+
+          <h3>コメント</h3>
+        </CardContent>
+      </Card>
     </div>
   );
 };
