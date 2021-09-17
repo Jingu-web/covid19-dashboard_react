@@ -1,6 +1,6 @@
 import { Card, CardContent, Typography } from "@material-ui/core";
 
-const InfoBox = ({ title, cases, total }) => {
+export const InfoBox = ({ title, cases, total }) => {
   return (
     <Card className="infoBox">
       <CardContent>
@@ -15,5 +15,3 @@ const InfoBox = ({ title, cases, total }) => {
     </Card>
   );
 };
-
-export default InfoBox;
