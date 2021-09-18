@@ -10,11 +10,14 @@ import {
 import "./App.css";
 import { InfoBox } from "./components/InfoBox";
 import { Map } from "./components/Map";
+import { Table } from "./components/Table";
+import { sortData } from "./utils/SortData";
 
 const App = () => {
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState("worldwide");
   const [countryInfo, setCountryInfo] = useState({});
+  const [tableData, setTableData] = useState([]);
 
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
@@ -34,6 +37,8 @@ const App = () => {
             value: country.countryInfo.iso2,
           }));
 
+          const sortedData = sortData(data);
+          setTableData(sortedData);
           setCountries(countries);
         });
     };
@@ -100,7 +105,7 @@ const App = () => {
       <Card className="app_right">
         <CardContent>
           <h3>国別感染者数リスト</h3>
-
+          <Table countries={tableData} />
           <h3>コメント</h3>
         </CardContent>
       </Card>
