@@ -20,7 +20,7 @@ export const showDataOnMap = (data, casesType = "cases") =>
   data.map((country) => (
     <Circle
       center={[country.countryInfo.lat, country.countryInfo.long]}
-      fillOpacity={0.4}
+      fillOpacity={0.2}
       color={casesTypeColors[casesType].hex}
       fillColor={casesTypeColors[casesType].hex}
       radius={

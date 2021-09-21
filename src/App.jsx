@@ -13,6 +13,7 @@ import { InfoBox } from "./components/InfoBox";
 import { Map } from "./components/Map";
 import { Table } from "./components/Table";
 import { sortData } from "./utils/SortData";
+import { prettyPrintStat } from "./utils/prettyPrintStat";
 
 const App = () => {
   const [countries, setCountries] = useState([]);
@@ -92,19 +93,19 @@ const App = () => {
 
         <div className="app_stats">
           <InfoBox
-            title="Coronavirus Cases"
-            cases={countryInfo.todayCases}
-            total={countryInfo.cases}
+            title="感染者数"
+            cases={prettyPrintStat(countryInfo.todayCases)}
+            total={prettyPrintStat(countryInfo.cases)}
           />
           <InfoBox
-            title="Recovered"
-            cases={countryInfo.todayRecovered}
-            total={countryInfo.recovered}
+            title="回復者数"
+            cases={prettyPrintStat(countryInfo.todayRecovered)}
+            total={prettyPrintStat(countryInfo.recovered)}
           />
           <InfoBox
-            title="Deaths"
-            cases={countryInfo.todayDeaths}
-            total={countryInfo.deaths}
+            title="死者数"
+            cases={prettyPrintStat(countryInfo.todayDeaths)}
+            total={prettyPrintStat(countryInfo.deaths)}
           />
         </div>
         <Map countries={mapCountries} center={mapCenter} zoom={mapZoom} />

@@ -1,5 +1,7 @@
 import { Card, CardContent, Typography } from "@material-ui/core";
 
+import "./InfoBox.css";
+
 export const InfoBox = ({ title, cases, total }) => {
   return (
     <Card className="infoBox">
@@ -9,7 +11,7 @@ export const InfoBox = ({ title, cases, total }) => {
         </Typography>
         <h2 className="infoBox_cases">{cases}</h2>
         <Typography className="infoBox_total" color="textSecondary">
-          {total} Total
+          トータル {total}
         </Typography>
       </CardContent>
     </Card>
