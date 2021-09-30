@@ -23,9 +23,10 @@ const App = () => {
   const [mapCenter, setMapCenter] = useState({ lat: 36, lng: 138 });
   const [mapZoom, setMapZoom] = useState(2.5);
   const [mapCountries, setMapCountries] = useState([]);
+  const [casesType, setCasesType] = useState("cases");
 
   useEffect(() => {
-    fetch("https://disease.sh/v3/covid-19/all")
+    fetch(process.env.REACT_APP_COUNTY_ALL)
       .then((res) => res.json())
       .then((data) => {
         setCountryInfo(data);
@@ -34,7 +35,7 @@ const App = () => {
 
   useEffect(() => {
     const getCountriesData = async () => {
-      await fetch("https://disease.sh/v3/covid-19/countries")
+      await fetch(process.env.REACT_APP_COUNTY)
         .then((response) => response.json())
         .then((data) => {
           const countries = data.map((country) => ({
@@ -57,8 +58,8 @@ const App = () => {
 
     const url =
       countryCode === "worldwide"
-        ? "https://disease.sh/v3/covid-19/all"
-        : `https://disease.sh/v3/covid-19/countries/${countryCode}`;
+        ? process.env.REACT_APP_COUNTY_ALL
+        : `${process.env.REACT_APP_COUNTY}/${countryCode}`;
 
     await fetch(url)
       .then((res) => res.json())
@@ -93,28 +94,42 @@ const App = () => {
 
         <div className="app_stats">
           <InfoBox
+            isRed
+            active={casesType === "cases"}
+            onClick={(e) => setCasesType("cases")}
             title="感染者数"
             cases={prettyPrintStat(countryInfo.todayCases)}
             total={prettyPrintStat(countryInfo.cases)}
           />
           <InfoBox
+            active={casesType === "recovered"}
+            onClick={(e) => setCasesType("recovered")}
             title="回復者数"
             cases={prettyPrintStat(countryInfo.todayRecovered)}
             total={prettyPrintStat(countryInfo.recovered)}
           />
           <InfoBox
+            isRed
+            active={casesType === "deaths"}
+            onClick={(e) => setCasesType("deaths")}
             title="死者数"
             cases={prettyPrintStat(countryInfo.todayDeaths)}
             total={prettyPrintStat(countryInfo.deaths)}
           />
         </div>
-        <Map countries={mapCountries} center={mapCenter} zoom={mapZoom} />
+        <Map
+          casesType={casesType}
+          countries={mapCountries}
+          center={mapCenter}
+          zoom={mapZoom}
+        />
       </div>
       <Card className="app_right">
         <CardContent>
           <h3>国別感染者数リスト</h3>
           <Table countries={tableData} />
           <h3>コメント</h3>
+          <span>実装中...</span>
         </CardContent>
       </Card>
     </div>
